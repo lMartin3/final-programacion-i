@@ -17,7 +17,8 @@ int main() {
         printf("2- Modificar stock\n");
         printf("3- Mostrar productos sin stock\n");
         printf("4- Mostrar producto con mayor stock\n");
-        printf("5- Salir\n");
+        printf("5- Mostrar todos los productos cargados y su stock\n");
+        printf("6- Salir\n");
         printf("--------------------------------\n");
         scanf("%d", &opcion);
         switch(opcion) {
@@ -26,20 +27,27 @@ int main() {
                 break;
             }
             case 2: {
-
+                modificarStock();
+                break;
             }
             case 3: {
-                
+                break;
             }
             case 4: {
-
+                break;
             }
-            case 5: {}
+            case 5: {
+                listarProductos();
+                break;
+            }
+            case 6: {
+                break;
+            }
             default: {
                 printf("Opci%cn inv%clida!", 162, 160);
             }
         }
-    } while(opcion != 5);
+    } while(opcion != 6);
     printf("Adi%cs!", 162);
     return 0;
 }
@@ -81,4 +89,44 @@ void cargarProducto() {
     scanf("%d", &stock[indice]);
     printf("Nuevo producto con c%cdigo %d y stock %d registrado correctamente\n", 162, codigos[indice], stock[indice]);
     system("PAUSE");
-} 
+}
+
+void modificarStock() {
+    printf("---- MODIFICAR STOCK ----\n");
+    int codigoIngresado = -1;
+    int indiceProducto = -1;
+    do {
+        printf("Ingrese el codigo del producto cuyo stock desea modificar: ");
+        scanf("%d", &codigoIngresado);
+        int ix = obtenerIndiceDeProductoPorID(codigoIngresado);
+        if(codigoIngresado>=1&&ix>=0) {
+            indiceProducto = ix;
+        }
+        if(indiceProducto==-1) {
+            printf("No se encontr%c ningun producto con ese c%cdigo\n", 162, 162);
+        }
+    } while (indiceProducto==-1);
+    
+    int nuevoStock = -1;
+    do {
+        printf("Ingrese el nuevo stock: ");
+        scanf("%d", &nuevoStock);
+        if(nuevoStock<0) {
+            printf("Tiene que ingresar un n%cmero positivo!", 163);
+        }
+    } while(nuevoStock<0);
+
+    stock[indiceProducto] = nuevoStock;
+    printf("Stock del producto %d actualizado a %d correctamente\n", codigoIngresado, nuevoStock);
+}
+
+
+void listarProductos() {
+    printf("---- LISTA DE PRODUCTOS ----\n");
+    for(int i=0;i<MAX;i++) {
+        if(codigos[i]==0) break;
+        printf("-> Codigo: %d | Stock: %d\n", codigos[i], stock[i]);
+    }
+    printf("----------- FIN -----------\n");
+    system("PAUSE");
+}
