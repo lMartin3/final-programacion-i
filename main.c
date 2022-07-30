@@ -35,6 +35,7 @@ int main() {
                 break;
             }
             case 4: {
+                mostrarProductoConMayorStock();
                 break;
             }
             case 5: {
@@ -127,6 +128,24 @@ void listarProductos(int soloSinStock) {
         if(codigos[i]==0) break;
         if(soloSinStock==1&&stock[i]>0) continue;
         printf("-> Codigo: %d | Stock: %d\n", codigos[i], stock[i]);
+    }
+    printf("----------- FIN -----------\n");
+    system("PAUSE");
+}
+
+void mostrarProductoConMayorStock() {
+    printf("---- PRODUCTO CON MAYOR STOCK ----\n");
+    if(codigos[0]==0) {
+        printf("No hay productos registrados\n");
+    } else {
+        int mayorIndex = 0;
+        for(int i=0;i<MAX;i++) {
+            if(codigos[i]==0) break;
+            if(stock[i]>stock[mayorIndex]) {
+                mayorIndex = i;
+            }
+        }
+        printf("C%cdigo: %d | Stock: %d", 162, codigos[mayorIndex], stock[mayorIndex]);
     }
     printf("----------- FIN -----------\n");
     system("PAUSE");
