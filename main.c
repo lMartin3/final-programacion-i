@@ -31,13 +31,14 @@ int main() {
                 break;
             }
             case 3: {
+                listarProductos(1);
                 break;
             }
             case 4: {
                 break;
             }
             case 5: {
-                listarProductos();
+                listarProductos(0);
                 break;
             }
             case 6: {
@@ -120,11 +121,11 @@ void modificarStock() {
     printf("Stock del producto %d actualizado a %d correctamente\n", codigoIngresado, nuevoStock);
 }
 
-
-void listarProductos() {
-    printf("---- LISTA DE PRODUCTOS ----\n");
+void listarProductos(int soloSinStock) {
+    printf(soloSinStock==1 ? "---- PRODUCTOS SIN STOCK ----\n" : "---- LISTA DE PRODUCTOS ----\n");
     for(int i=0;i<MAX;i++) {
         if(codigos[i]==0) break;
+        if(soloSinStock==1&&stock[i]>0) continue;
         printf("-> Codigo: %d | Stock: %d\n", codigos[i], stock[i]);
     }
     printf("----------- FIN -----------\n");
