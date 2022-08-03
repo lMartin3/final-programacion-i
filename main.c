@@ -1,14 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAX 100
 
 int codigos[100];
 int stock[100];
 
+char* usuario = "admin";
+char* contrasena = "admin";
+
 //  á    é    í    ó    ú
 // 160, 130, 161, 162, 163
 
 int main() {
+    char* usr;
+    char* pwd;
+    printf("Ingrese el usuario: ");
+    scanf("%s", &usr);
+    printf("Ingrese la contraseña: ");
+    scanf(" %s", &pwd);
+    int acceso = strcmp(&usr, &usuario) + strcmp(&pwd, &contrasena);
+    if(acceso!=2) {
+        printf("Usuario y/o contraseña incorrectos %d, %d", strcmp(&usr, &usuario), strcmp(&pwd, &contrasena));
+        exit(-1);
+        return;
+    }
     int opcion = 0;
     do {
         printf("-------- Men%c principal --------\n", 163);
