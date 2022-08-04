@@ -11,19 +11,17 @@ int stock[100];
 
 int main()
 {
-    // ask the user for a username and password, and check if they are correct
-
     char name[20];
     char password[10];
     printf("Ingrese el nombre de usuario: ");
     scanf("%s", name);
-    printf("Ingrese la contraseña: ");
+    printf("Ingrese la contrase%ca: ", 164);
     scanf("%s", password);
     if (strcmp(name, "admin") == 0 && strcmp(password, "admin1234") == 0) {
         printf("Bienvenido!\n");
     }
     else {
-        printf("Usuario y/o contraseña incorrectos\n");
+        printf("Usuario y/o contrase%ca incorrectos\n", 164);
         exit(-1);
         return;
     }
