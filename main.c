@@ -121,7 +121,7 @@ void cargarProducto()
         scanf("%d", &codigo);
         if (codigo < 1)
         {
-            printf("El codigo debe ser positivo!");
+            printf("El codigo debe ser positivo!\n");
         }
         else if (obtenerIndiceDeProductoPorID(codigo) != -1)
         {
