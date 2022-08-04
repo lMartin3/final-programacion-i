@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX 100
-
+#define INTENTOS_MAXIMOS 3
 int codigos[100];
 int stock[100];
 
@@ -13,17 +13,26 @@ int main()
 {
     char name[20];
     char password[10];
-    printf("Ingrese el nombre de usuario: ");
-    scanf("%s", name);
-    printf("Ingrese la contrase%ca: ", 164);
-    scanf("%s", password);
-    if (strcmp(name, "admin") == 0 && strcmp(password, "admin1234") == 0) {
-        printf("Bienvenido!\n");
-    }
-    else {
-        printf("Usuario y/o contrase%ca incorrectos\n", 164);
-        exit(-1);
-        return;
+    int intentos = 0;
+
+    do{
+        printf("Ingrese el nombre de usuario: ");
+        scanf("%s", name);
+        printf("Ingrese la contrase%ca: ", 164);
+        scanf("%s", password);
+
+        if (strcmp(name, "admin") == 0 && strcmp(password, "admin1234") == 0) {
+            printf("Bienvenido!\n");
+            break;
+        }
+        else {
+            intentos++;
+            printf("Usuario y/o contrase%ca incorrectos, le quedan %d intentos\n", 164, INTENTOS_MAXIMOS-intentos);
+        }
+    } while (intentos < INTENTOS_MAXIMOS);
+    if(intentos>=3) {
+        printf("Ha superado el n%cmero de intentos permitidos\n", 163);
+        return -1;
     }
     int opcion = 0;
     do
