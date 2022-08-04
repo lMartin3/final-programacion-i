@@ -76,9 +76,10 @@ int main()
             printf("Opci%cn inv%clida!", 162, 160);
         }
         }
+        system("PAUSE");
     } while (opcion != 6);
     printf("Adi%cs!", 162);
-    return 0;
+    return 1;
 }
 
 int obtenerIndiceDeProductoPorID(int idProducto)
@@ -101,7 +102,6 @@ void cargarProducto()
     if (indice < 0 || indice >= MAX)
     {
         printf("Se alcanz%c la cantidad m%cxima de productos cargados (%d)\n", 162, 160, indice);
-        system("PAUSE");
         return;
     }
 
@@ -127,7 +127,6 @@ void cargarProducto()
     printf("Ingrese un stock incial para el producto: ");
     scanf("%d", &stock[indice]);
     printf("Nuevo producto con c%cdigo %d y stock %d registrado correctamente\n", 162, codigos[indice], stock[indice]);
-    system("PAUSE");
 }
 
 void modificarStock()
@@ -177,7 +176,6 @@ void listarProductos(int soloSinStock)
         printf("-> Codigo: %d | Stock: %d\n", codigos[i], stock[i]);
     }
     printf("----------- FIN -----------\n");
-    system("PAUSE");
 }
 
 void mostrarProductoConMayorStock()
@@ -202,5 +200,4 @@ void mostrarProductoConMayorStock()
         printf("C%cdigo: %d | Stock: %d", 162, codigos[mayorIndex], stock[mayorIndex]);
     }
     printf("----------- FIN -----------\n");
-    system("PAUSE");
 }
