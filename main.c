@@ -83,7 +83,9 @@ int main()
             printf("Opci%cn inv%clida!", 162, 160);
         }
         }
-        system("PAUSE");
+        if(opcion!=6) {
+            system("PAUSE");
+        }
     } while (opcion != 6);
     printf("Adi%cs!", 162);
     return 1;
