@@ -6,27 +6,30 @@
 int codigos[100];
 int stock[100];
 
-char* usuario = "admin";
-char* contrasena = "admin";
-
 //  á    é    í    ó    ú
 // 160, 130, 161, 162, 163
 
-int main() {
-    char* usr;
-    char* pwd;
-    printf("Ingrese el usuario: ");
-    scanf("%s", &usr);
+int main()
+{
+    // ask the user for a username and password, and check if they are correct
+
+    char name[20];
+    char password[10];
+    printf("Ingrese el nombre de usuario: ");
+    scanf("%s", name);
     printf("Ingrese la contraseña: ");
-    scanf(" %s", &pwd);
-    int acceso = strcmp(&usr, &usuario) + strcmp(&pwd, &contrasena);
-    if(acceso!=2) {
-        printf("Usuario y/o contraseña incorrectos %d, %d", strcmp(&usr, &usuario), strcmp(&pwd, &contrasena));
+    scanf("%s", password);
+    if (strcmp(name, "admin") == 0 && strcmp(password, "admin1234") == 0) {
+        printf("Bienvenido!\n");
+    }
+    else {
+        printf("Usuario y/o contraseña incorrectos\n");
         exit(-1);
         return;
     }
     int opcion = 0;
-    do {
+    do
+    {
         printf("-------- Men%c principal --------\n", 163);
         printf("Por favor, seleccione una opci%cn:\n", 162);
         printf("1- Cargar un producto\n");
@@ -37,127 +40,162 @@ int main() {
         printf("6- Salir\n");
         printf("--------------------------------\n");
         scanf("%d", &opcion);
-        switch(opcion) {
-            case 1: {
-                cargarProducto();
-                break;
-            }
-            case 2: {
-                modificarStock();
-                break;
-            }
-            case 3: {
-                listarProductos(1);
-                break;
-            }
-            case 4: {
-                mostrarProductoConMayorStock();
-                break;
-            }
-            case 5: {
-                listarProductos(0);
-                break;
-            }
-            case 6: {
-                break;
-            }
-            default: {
-                printf("Opci%cn inv%clida!", 162, 160);
-            }
+        switch (opcion)
+        {
+        case 1:
+        {
+            cargarProducto();
+            break;
         }
-    } while(opcion != 6);
+        case 2:
+        {
+            modificarStock();
+            break;
+        }
+        case 3:
+        {
+            listarProductos(1);
+            break;
+        }
+        case 4:
+        {
+            mostrarProductoConMayorStock();
+            break;
+        }
+        case 5:
+        {
+            listarProductos(0);
+            break;
+        }
+        case 6:
+        {
+            break;
+        }
+        default:
+        {
+            printf("Opci%cn inv%clida!", 162, 160);
+        }
+        }
+    } while (opcion != 6);
     printf("Adi%cs!", 162);
     return 0;
 }
 
-
-int obtenerIndiceDeProductoPorID(int idProducto) {
-    for(int i=0;i<MAX;i++) {
-        if(codigos[i]==idProducto) {
+int obtenerIndiceDeProductoPorID(int idProducto)
+{
+    for (int i = 0; i < MAX; i++)
+    {
+        if (codigos[i] == idProducto)
+        {
             return i;
         }
     }
     return -1;
 }
 
-void cargarProducto() {
+void cargarProducto()
+{
     // Obtenemos el primer indice disponible para ambos arrays
     int indice = obtenerIndiceDeProductoPorID(0);
     printf("---- CARGAR NUEVO PRODUCTO ----\n");
-    if(indice<0||indice>=MAX) {
+    if (indice < 0 || indice >= MAX)
+    {
         printf("Se alcanz%c la cantidad m%cxima de productos cargados (%d)\n", 162, 160, indice);
         system("PAUSE");
         return;
     }
-    
+
     int codigo = -1;
-    do {
+    do
+    {
         printf("Ingrese un c%cdigo de barras para el producto: ", 162);
         scanf("%d", &codigo);
-        if(codigo<1) {
+        if (codigo < 1)
+        {
             printf("El codigo debe ser positivo!");
-        } else if(obtenerIndiceDeProductoPorID(codigo)!=-1) {
+        }
+        else if (obtenerIndiceDeProductoPorID(codigo) != -1)
+        {
             // Esto significa que ya existe un producto con ese código
             printf("Ya existe un producto con ese c%cdigo!\n", 162);
-        } else {
+        }
+        else
+        {
             codigos[indice] = codigo;
         }
-    } while(codigos[indice]==0);
+    } while (codigos[indice] == 0);
     printf("Ingrese un stock incial para el producto: ");
     scanf("%d", &stock[indice]);
     printf("Nuevo producto con c%cdigo %d y stock %d registrado correctamente\n", 162, codigos[indice], stock[indice]);
     system("PAUSE");
 }
 
-void modificarStock() {
+void modificarStock()
+{
     printf("---- MODIFICAR STOCK ----\n");
     int codigoIngresado = -1;
     int indiceProducto = -1;
-    do {
+    do
+    {
         printf("Ingrese el codigo del producto cuyo stock desea modificar: ");
         scanf("%d", &codigoIngresado);
         int ix = obtenerIndiceDeProductoPorID(codigoIngresado);
-        if(codigoIngresado>=1&&ix>=0) {
+        if (codigoIngresado >= 1 && ix >= 0)
+        {
             indiceProducto = ix;
         }
-        if(indiceProducto==-1) {
+        if (indiceProducto == -1)
+        {
             printf("No se encontr%c ningun producto con ese c%cdigo\n", 162, 162);
         }
-    } while (indiceProducto==-1);
-    
+    } while (indiceProducto == -1);
+
     int nuevoStock = -1;
-    do {
+    do
+    {
         printf("Ingrese el nuevo stock: ");
         scanf("%d", &nuevoStock);
-        if(nuevoStock<0) {
+        if (nuevoStock < 0)
+        {
             printf("Tiene que ingresar un n%cmero positivo!", 163);
         }
-    } while(nuevoStock<0);
+    } while (nuevoStock < 0);
 
     stock[indiceProducto] = nuevoStock;
     printf("Stock del producto %d actualizado a %d correctamente\n", codigoIngresado, nuevoStock);
 }
 
-void listarProductos(int soloSinStock) {
-    printf(soloSinStock==1 ? "---- PRODUCTOS SIN STOCK ----\n" : "---- LISTA DE PRODUCTOS ----\n");
-    for(int i=0;i<MAX;i++) {
-        if(codigos[i]==0) break;
-        if(soloSinStock==1&&stock[i]>0) continue;
+void listarProductos(int soloSinStock)
+{
+    printf(soloSinStock == 1 ? "---- PRODUCTOS SIN STOCK ----\n" : "---- LISTA DE PRODUCTOS ----\n");
+    for (int i = 0; i < MAX; i++)
+    {
+        if (codigos[i] == 0)
+            break;
+        if (soloSinStock == 1 && stock[i] > 0)
+            continue;
         printf("-> Codigo: %d | Stock: %d\n", codigos[i], stock[i]);
     }
     printf("----------- FIN -----------\n");
     system("PAUSE");
 }
 
-void mostrarProductoConMayorStock() {
+void mostrarProductoConMayorStock()
+{
     printf("---- PRODUCTO CON MAYOR STOCK ----\n");
-    if(codigos[0]==0) {
+    if (codigos[0] == 0)
+    {
         printf("No hay productos registrados\n");
-    } else {
+    }
+    else
+    {
         int mayorIndex = 0;
-        for(int i=0;i<MAX;i++) {
-            if(codigos[i]==0) break;
-            if(stock[i]>stock[mayorIndex]) {
+        for (int i = 0; i < MAX; i++)
+        {
+            if (codigos[i] == 0)
+                break;
+            if (stock[i] > stock[mayorIndex])
+            {
                 mayorIndex = i;
             }
         }
